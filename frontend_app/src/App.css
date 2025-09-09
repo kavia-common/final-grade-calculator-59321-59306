@@ -1,104 +1,242 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --color-primary: #1976d2;
+  --color-accent: #f9a825;
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-muted: #6b7280;
+  --color-text: #0f172a;
+  --color-border: #e5e7eb;
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-2: 0 10px 20px rgba(0,0,0,0.06), 0 6px 6px rgba(0,0,0,0.08);
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  background: var(--color-bg);
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+.fgc-app {
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  color: var(--color-text);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.fgc-header {
+  padding: 32px 16px 8px;
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.fgc-title {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--color-primary);
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+.fgc-subtitle {
+  margin-top: 8px;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.fgc-main {
+  display: grid;
+  place-items: start center;
+  padding: 16px;
+}
+
+.fgc-card {
+  width: 100%;
+  max-width: 720px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-2);
+}
+
+.fgc-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .fgc-form-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
+.fgc-field {}
+
+.fgc-label {
+  font-size: 13px;
+  color: var(--color-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.fgc-input-wrap {
   position: relative;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.fgc-input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  font-size: 16px;
 }
 
-.theme-toggle {
+.fgc-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.12);
+}
+
+.fgc-suffix {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-muted);
   font-size: 14px;
-  font-weight: 600;
+}
+
+.fgc-help {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.fgc-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.fgc-btn {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text);
+  padding: 10px 16px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  transition: transform .08s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  box-shadow: var(--shadow-1);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.fgc-btn:active {
+  transform: translateY(1px);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.fgc-btn-primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fgc-btn-primary:hover {
+  filter: brightness(0.96);
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+.fgc-btn-ghost:hover {
+  background: #fafafa;
+}
+
+.fgc-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fgc-result {
+  margin-top: 16px;
+  border-top: 1px dashed var(--color-border);
+  padding-top: 16px;
+}
+
+.fgc-muted {
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.fgc-alert {
+  background: #fffaf0;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.fgc-alert-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.fgc-result-number-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.fgc-result-number {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  color: var(--color-primary);
+  background: linear-gradient(90deg, rgba(25,118,210,0.1), rgba(249,168,37,0.12));
+  border: 1px solid var(--color-border);
+  padding: 10px 14px;
+  border-radius: 12px;
+}
+
+.fgc-badge-warn {
+  color: #b91c1c;
+  background: linear-gradient(90deg, rgba(185,28,28,0.08), rgba(249,168,37,0.12));
+  border-color: #fecaca;
+}
+
+.fgc-interpretation {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.fgc-steps {
+  margin-top: 12px;
+  background: #fcfcfc;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.fgc-steps-title {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  color: var(--color-accent);
+  letter-spacing: .2px;
+  font-weight: 700;
+}
+
+.fgc-steps ol {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--color-text);
+  font-size: 14px;
+}
+
+.fgc-footer {
+  padding: 20px 16px 28px;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 13px;
 }
